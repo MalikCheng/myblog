@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="MalikCheng 记录分享时下流行技术">
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/iron_happy.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          轻松代建个人博客  Hexo+Github一步步搭建属于自己的博客 - 程连龙 | Blog
+        
+    </title>
+
+    <link rel="canonical" href="http://demo.malik.pub/2018/11/02/introduce-the-first-blog/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('/img/article_header/article_bg.jpg')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#博客搭建" title="博客搭建">博客搭建</a>
+                            
+                        </div>
+                        <h1>轻松代建个人博客  Hexo+Github一步步搭建属于自己的博客</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by MalikCheng on
+                            2018-11-02
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Malik|My Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">about</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2">使用Hexo+Github一步步搭建属于自己的博客（基础）</a>
+		</h1>
+		<div class="clear"></div><div class="postBody">
+		<div id="cnblogs_post_body" class="blogpost-body"><p>前言：电脑系统为window 10专业版，64位</p>
+<p>&nbsp;</p>
+<div id="cnblogs_post_body" class="blogpost-body"><p>欢迎预览
+<a href="https://blog.malik.pub" target="_blank" rel="noopener">我的博客</a>
+</p>
+<p>&nbsp;</p>
+<p><strong>相关步骤：</strong></p>
+<p>1、安装Node.js和配置好Node.js环境，打开cmd命令行，成功界面如下</p>
+<p><img src="https://i.loli.net/2018/11/03/5bdd0d59741cc.png" alt="成功界面"></p>
+<p>&nbsp;2、安装Git和配置好Git环境，安装成功的象征就是在电脑上任何位置<strong>鼠标右键</strong>能够出现如下两个选择</p>
+<p><a href="https://i.loli.net/2018/11/03/5bdd108881a7e.png" target="_blank" rel="noopener"><img src="https://i.loli.net/2018/11/03/5bdd108881a7e.png" alt="2.png"></a></p>
+<p>注意：一般出于安全考虑，只有在Git Bash Here中才能进行Git的相关操作。如果需要在cmd命令行里调用Git，那么就要配置电脑的环境变量Path，或者在安装的时候选择use Git from the Windows Command Prompt。这个可有可无，影响不大，成功配置的界面如图</p>
+<p><a href="https://i.loli.net/2018/11/03/5bdd10886dc35.png" target="_blank" rel="noopener"><img src="https://i.loli.net/2018/11/03/5bdd10886dc35.png" alt="3.png"></a></p>
+<p>&nbsp;3、Github账户注册和新建项目，项目必须要遵守格式：账户名.github.io，不然接下来会有很多麻烦。并且需要勾选Initialize this repository with a README</p>
+<p><img src="https://img-blog.csdn.net/20180705110531880?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM0MjkxNzc3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt></p>
+<p>&nbsp;</p>
+<p>在建好的项目右侧有个settings按钮，点击它，向下拉到GitHub Pages，你会看到那边有个网址，访问它，你将会惊奇的发现该项目已经被部署到网络上，能够通过外网来访问它。&nbsp;</p>
+<p><img src="https://img-blog.csdn.net/20180705111356729?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM0MjkxNzc3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt></p>
+<p>&nbsp;</p>
+<p>&nbsp;4、安装Hexo，在自己认为合适的地方创个文件夹，我是在D盘建了一个blog文件夹。然后通过命令行进入到该文件夹里面</p>
+<p><a href="https://i.loli.net/2018/11/03/5bdd1088604b4.png" target="_blank" rel="noopener"><img src="https://i.loli.net/2018/11/03/5bdd1088604b4.png" alt="4.png"></a></p>
+<p>&nbsp;</p>
+<p>输入npm install hexo -g，开始安装Hexo</p>
+<p><a href="https://i.loli.net/2018/11/03/5bdd108892680.png" target="_blank" rel="noopener"><img src="https://i.loli.net/2018/11/03/5bdd108892680.png" alt="5.png"></a></p>
+<p>&nbsp;</p>
+<p>输入hexo -v，检查hexo是否安装成功</p>
+<p><a href="https://i.loli.net/2018/11/03/5bdd10887242d.png" target="_blank" rel="noopener"><img src="https://i.loli.net/2018/11/03/5bdd10887242d.png" alt="6.png"></a></p>
+<p>&nbsp;</p>
+<p>输入hexo init，初始化该文件夹（有点漫长的等待。。。）</p>
+<p><a href="https://i.loli.net/2018/11/03/5bdd108850f39.png" target="_blank" rel="noopener"><img src="https://i.loli.net/2018/11/03/5bdd108850f39.png" alt="7.png"></a></p>
+<p>看到后面的“Start blogging with Hexo！”，激动有木有！！！！！</p>
+<p><a href="https://i.loli.net/2018/11/03/5bdd1087ba600.png" target="_blank" rel="noopener"><img src="https://i.loli.net/2018/11/03/5bdd1087ba600.png" alt="8.png"></a></p>
+<p>&nbsp;</p>
+<p>输入npm install，安装所需要的组件</p>
+<p><a href="https://i.loli.net/2018/11/03/5bdd1087bcf69.png" target="_blank" rel="noopener"><img src="https://i.loli.net/2018/11/03/5bdd1087bcf69.png" alt="9.png"></a></p>
+<p>&nbsp;</p>
+<p>输入hexo g，首次体验Hexo</p>
+<p><a href="https://i.loli.net/2018/11/03/5bdd10888396f.png" target="_blank" rel="noopener"><img src="https://i.loli.net/2018/11/03/5bdd10888396f.png" alt="10.png"></a></p>
+<p>&nbsp;</p>
+<p>&nbsp;输入hexo s，开启服务器，访问该网址，正式体验Hexo</p>
+<p><img src="https://i.loli.net/2018/11/03/5bdd12baba6f5.png" alt="11.png"></p>
+<p>问题：假如页面一直无法跳转，那么可能端口被占用了。此时我们ctrl+c停止服务器，接着输入“hexo server -p 端口号”来改变端口号</p>
+<p><img src="https://i.loli.net/2018/11/03/5bdd12bac85ea.png" alt="12.png"></p>
+<p>那么出现如下图就成功了</p>
+<p><img src="https://i.loli.net/2018/11/03/5bdd1333af3c8.png" alt="-1.png"></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;5、将Hexo与Github page联系起来，设置Git的user name和email（如果是第一次的话）</p>
+<p><img src="https://i.loli.net/2018/11/03/5bdd12bac8065.png" alt="13 (2).png"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config  --global user.name <span class="string">"feng"</span></span><br><span class="line">$ git config  --global user.email <span class="string">"邮箱名"</span></span><br></pre></td></tr></table></figure>
+<p>上图是在其文件夹里面鼠标右键，点击Git Base Here。这里“feng”可以替换成自己的用户名，邮箱可以替换成自己的邮箱，这个地方必须是设置全局的，否则后面生成部署文章时会报错！</p>
+<p>&nbsp;</p>
+<p>输入cd ~/.ssh，检查是否由.ssh的文件夹</p>
+<p><img src="https://i.loli.net/2018/11/03/5bdd12baba15a.png" alt="14.png"></p>
+<p>&nbsp;</p>
+<p>输入ls，列出该文件下的内容。下图说明存在</p>
+<p><img src="https://i.loli.net/2018/11/03/5bdd12bad65c7.png" alt="15.png"></p>
+<p>&nbsp;</p>
+<p>&nbsp;输入ssh-keygen -t rsa -C “邮箱名”，连续三个回车，生成密钥，最后得到了两个文件：id_rsa和id_rsa.pub（默认存储路径是：C:<span class="hljs-command">\Users<span class="hljs-command">\Administrator<span class="hljs-command">\.ssh）</span></span></span>。</p>
+<p>&nbsp;</p>
+<p>&nbsp;输入eval "$(ssh-agent -s)",启动ssh-agent   ssh代理</p>
+<p><img src="https://i.loli.net/2018/11/03/5bdd12bae5172.png" alt="16.png"></p>
+<p>&nbsp;</p>
+<p>&nbsp;再输入ssh-add ~/.ssh/id_rsa，添加生成的SSH key到ssh-agent</p>
+<p><img src="https://i.loli.net/2018/11/03/5bdd12bae57f5.png" alt="17.png"></p>
+<p>&nbsp;</p>
+<p>&nbsp;登录Github，点击头像下的settings，添加ssh</p>
+<p><img src="https://i.loli.net/2018/11/03/5bdd12bc9d681.png" alt="18.png"></p>
+<p>&nbsp;</p>
+<p>新建一个new ssh key，将id_rsa.pub文件里的内容复制上去</p>
+<p><img src="https://img-blog.csdn.net/20180705114102154?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM0MjkxNzc3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt></p>
+<p>&nbsp;</p>
+<p>输入ssh -T git@github.com，测试添加ssh是否成功。如果看到Hi后面是你的用户名，就说明成功了</p>
+<p><img src="https://i.loli.net/2018/11/03/5bdd18bf161b7.png" alt="19.png"></p>
+<p><span style="color: #993300"><strong>问题：</strong></span>假如ssh-key配置失败，那么只要以下步骤就能完全解决</p>
+<p>首先，清除所有的key-pair<br>ssh-add -D<br>rm -r ~/.ssh<br>删除你在github中的public-key</p>
+<p>重新生成ssh密钥对<br>ssh-keygen -t rsa -C "xxx@xxx.com"</p>
+<p>接下来正常操作<br>在github上添加公钥public-key:<br>1、首先在你的终端运行 xclip -sel c ~/.ssh/id_rsa.pub将公钥内容复制到剪切板<br>2、在github上添加公钥时，直接复制即可<br>3、保存</p>
+<p>测试：<br>在终端 ssh -T <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a></p>
+<p>&nbsp;</p>
+<p>6、配置Deployment，在其文件夹中，找到_config.yml文件，修改repo值（在末尾）</p>
+<p><font color="red" size="5" face="“黑体”">注意这个地方有个坑</font>，第一打开_config.yml文件时type冒号与git之间竟然没有空格的，再说一遍没有空格呀！但是必须加上空格！！！这3个都要加上空格！！！</p>
+<p>&nbsp;</p>
+<p><img src="https://img-blog.csdn.net/20180705113231624?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM0MjkxNzc3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<p>&nbsp;</p>
+<p>repo值是你在github项目里的ssh（右下角）</p>
+<p><img src="https://img-blog.csdn.net/20180705113045514?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM0MjkxNzc3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<p>&nbsp;</p>
+<p>如果这3个冒号之后有空格也有没有空格的，会报bad indentation of a mapping entry at line 82.......错误。我是没有注意到文件自带的type中没有空格，只有剩下两个加上了，报出这个错误。</p>
+<p>如果这3个冒号都没有加上空格，不会报错，但是最后部署提交时，打开博客地址是与第一次创建项目一样，没有起到效果。因为hexo根本没有提交到所给git地址仓库中。</p>
+<hr>
+<p>7、新建一篇博客，在cmd执行命令：hexo new post “博客名”</p>
+<p><img src="https://i.loli.net/2018/11/03/5bdd14bb6fd16.png" alt="20.png"></p>
+<p>&nbsp;</p>
+<p>&nbsp;这时候在文件夹_posts目录下将会看到已经创建的文件</p>
+<p><img src="https://i.loli.net/2018/11/03/5bdd1936c2340.png" alt="-2.png"></p>
+<p>&nbsp;</p>
+<p>在生成以及部署文章之前，需要安装一个扩展：npm install hexo<span class="hljs-attribute">-deployer<span class="hljs-attribute">-git <span class="hljs-subst">--save</span></span></span></p>
+<p><img src="https://i.loli.net/2018/11/03/5bdd1a0e79e1b.png" alt="扩展.png"></p>
+<p>&nbsp;</p>
+<p>使用编辑器编好文章，那么就可以使用命令：hexo d -g，生成以及部署了</p>
+<p><img src="https://i.loli.net/2018/11/03/5bdd14bb6ef9f.png" alt="22.png"></p>
+<p>&nbsp;</p>
+<p>部署成功后访问你的地址：http://用户名.github.io。那么将看到生成的文章，如果没有看到，前面都没有问题，查看git项目下的日期目录下有文章，说明是没有问题的，等待一会刷新就出来啦</p>
+<p><img src="https://img-blog.csdn.net/20180628112714447?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM0MjkxNzc3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><br>
+<img src="https://i.loli.net/2018/11/03/5bdd14bc6a4eb.png" alt="23.png"></p>
+<p>&nbsp;</p>
+<p>&nbsp;好了，到此为止，最基本的也是最全面的hexo+github搭建博客完结。接下来是进阶的操作</p>
+<p>&nbsp;</p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory"></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info"><div id="green_channel">
+</div>
+</div></div></div></div></div>
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2019/08/03/分布式事务/" data-toggle="tooltip" data-placement="top" title="分布式事务">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                </ul>
+
+                <br>
+                
+                <!-- require APlayer -->
+                
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+
+                
+
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#博客搭建" title="博客搭建">博客搭建</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://blog.csdn.net/qq_34291777" target="_blank">CSDN Blog </a></li>
+                    
+                        <li><a href="https://github.com/MalikCheng" target="_blank">gitbub </a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/Malik Cheng">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/MalikCheng">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; MalikCheng 2019 
+                    <br>
+                    Theme by <a href="http://beantech.org">BeanTech</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    re-Ported by <a href="http://blog.malik.pub">Malik</a> | 
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=malikCheng&repo=myblog&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://demo.malik.pub/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="http://demo.malik.pub/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

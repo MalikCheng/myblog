@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="MalikCheng 记录分享时下流行技术">
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/iron_happy.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          分布式事务 - 程连龙 | Blog
+        
+    </title>
+
+    <link rel="canonical" href="http://demo.malik.pub/2019/08/03/分布式事务/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('/img/article_header/article_bg.jpg')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#分布式事务" title="分布式事务">分布式事务</a>
+                            
+                        </div>
+                        <h1>分布式事务</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by MalikCheng on
+                            2019-08-03
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Malik|My Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">about</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h3>一、分布式事务</h3>
+<p><img src="https://i.loli.net/2019/07/25/5d39c0c4610ca19045.png" alt="思维导图1.png"></p>
+<h4>1.分类：刚性事务与柔性事务</h4>
+<pre><code>刚性事务：满足ACID原则、强一致性（在任何时间、任何地点、任何接入方式（pc、phone..)、任何服务(多个微服务间)看到数据都是一致的)
+柔性事务：满足base理论、最终一致性。它和刚性事务不同，不要求在同一时刻数据一致，允许在一段时间内数据的不一致、但最终的数据要一致。
+</code></pre>
+<h4>2.刚性事务</h4>
+<h5>2.1 ACID原则</h5>
+<pre><code>SQL标准中定义了四种隔离级别，根据事务并发情况下，一个事务内对操作的数据不同的可见性(读到的数据域)区分，如未提交读、不可重复读、可重复读，然而串行化从根本上解决事务并发。一般来说隔离级别越低问题越多、并发读高。
+
+[四种隔离级别](https://www.cnblogs.com/jian-gao/p/10795407.html)
+</code></pre>
+<h5>2.2 刚性事务实现方法(金融行业对数据敏感)</h5>
+<pre><code>1. 传统本地事务实现ACID方式：
+	1.1 写前日志WAL(Write Ahead Logging)：写入磁盘先logging。数据完整性，可恢复数据减少丢失
+		有undo、redo操作。undo是记录事务修改前的值，都用在事务回滚到上个值；redo记录事务提交修改后的			值，多用在恢复还没写入data file(磁盘文件)但事务已经成功提交更新的数据。
+     参考:理解数据库中的undo日志、redo日志、检查点https://www.cnblogs.com/l1pe1/p/8327849.html
+     	https://segmentfault.com/a/1190000018058484
+	1.2 影子分页(Shadow paging)：以page覆盖方式恢复，实现简单、技术落后、现在很少使用
+
+2. 刚性事务实现
+	2.1 XA模型
+		三个角色：AP(应用程序)、RM(资源管理、如数据库)、TM(事务管理者、协调者)
+</code></pre>
+<p><a href="https://i.loli.net/2019/07/24/5d385d423d4c068120.png" target="_blank" rel="noopener"><img src="https://i.loli.net/2019/07/24/5d385d423d4c068120.png" alt="详细.png"></a></p>
+<p><a href="https://i.loli.net/2019/07/24/5d385b1fd5c0675402.png" target="_blank" rel="noopener"><img src="https://i.loli.net/2019/07/24/5d385b1fd5c0675402.png" alt="XA.png"></a></p>
+<ol start="3">
+<li>
+<p>二段提交（2pc）-  分布式一致性协议</p>
+<p>它是基于XA模型规范实现</p>
+<pre><code>过程如下
+</code></pre>
+<ul>
+<li>
+<p>TM向所有RM发起prepare投票</p>
+</li>
+<li>
+<p>RM同意，TM发起commit</p>
+</li>
+<li>
+<p>RM commit过程若有宕机等异常，节点重启，根据XA recover对commit补偿</p>
+<p>例子如 组织爬山</p>
+<p>缺点：同步阻塞（一二段串行）、一二之间需锁定资源，数据库资源被锁定时间过程不适用与长事务（多个子操作构成长事务）</p>
+<p><a href="https://i.loli.net/2019/07/24/5d386123369d968443.png" target="_blank" rel="noopener"><img src="https://i.loli.net/2019/07/24/5d386123369d968443.png" alt="2pc.png"></a></p>
+</li>
+</ul>
+</li>
+</ol>
+<h4>3. 柔性事务</h4>
+<p>是对XA协议的妥协，它通过减低强一致性要求，从而降低数据库资源的锁定时间，提高可用性。</p>
+<h5>3.1 理论知识</h5>
+<h6>3.1.1 CAP</h6>
+<p>Consistency（一致性）、 Availability（可用性）、Partition tolerance（分区容错性）<br>
+对于共享数据系统，最多只能同时拥有CAP其中的两个，无法兼得。<br>
+真实系统应当是ACID与BASE的混合体</p>
+<p>C、A、P三者关系，</p>
+<pre><code>				保持容错性P存在时，C A是互斥的，C提高A必定下降；P不存在时，CA可共存。
+
+				保持可用性A下，一致性与容错性互斥(一致就没有错误，有错误就不一致）；
+
+				保持一致性C下，可用性与容错性互斥(保持一致，机器要不允许可用要不就允许网络通信可以出现问题)
+</code></pre>
+<p>参考：<a href="https://www.cnblogs.com/incognitor/p/9759956.html" target="_blank" rel="noopener">详解 CAP 定理 Consistency（一致性）、 Availability（可用性）、Partition tolerance（分区容错性）</a></p>
+<h6>3.1.2 BASE理论</h6>
+<p>BA：Basic Availability基本业务可用性（支持分区失败）<br>
+S：Soft state柔性状态（状态允许有短时间不同步，可异步）<br>
+E：Eventual consistency最终一致性（数据最终一致，可不是实时一致）<br>
+其中ACID，原子性与持久性必须根本保障；为了可用性、性能与降级服务的需要，只有降低一致性与隔离性的要求。<br>
+酸碱平衡（ACID-BASE Balance）</p>
+<h5>3.2 实现方式</h5>
+<pre><code>	通用实现方法：将一个长事务（分布式事务）拆分一个个短事务（本地事务），对齐提供补偿方法
+
+	实现模型有:
+
+			TCC模型：try-confirm-cancel、每个子业务都要实现try-confirm-cancel接口，对业务代码侵入大
+
+								资源锁定交给业务方
+</code></pre>
+<p><img src="https://i.loli.net/2019/07/24/5d3873979d94d54135.png" alt="TCC.png"><br>
+<img src="https://i.loli.net/2019/07/24/5d3873979d94d54135.png" alt="TCC.png" title="TCC.png"></p>
+<pre><code>			Sagas模型：
+</code></pre>
+<p><img src="https://i.loli.net/2019/07/24/5d38767561b2151386.png" alt="saga.png"></p>
+<p>其中注意的是在子事务对应的补偿没有Cn，个人理解，因为分解成的子事务是本地事务，在最后一个子事务不需要补偿方法，自己rollback就可以，倒数第二个却不可以这样子它是依赖与最后事务，自己rollback是与最后事务隔离了，所以必须要保证有补偿方法。</p>
+<p>业界大多是利用向后恢复，saga 的隔离要在业务层自己控制，对代码有侵入。</p>
+<pre><code>具体实现：
+
+	异步场景下，MQ消息驱动
+
+	考虑问题 幂等性
+</code></pre>
+<p>参考：</p>
+<p><a href="https://segmentfault.com/a/1190000013396639" target="_blank" rel="noopener">https://segmentfault.com/a/1190000013396639</a></p>
+<p><a href="https://www.jianshu.com/p/d70df89665b9" target="_blank" rel="noopener">https://www.jianshu.com/p/d70df89665b9</a></p>
+<p><a href="https://www.cnblogs.com/javalyy/p/8882144.html" target="_blank" rel="noopener">深入理解幂等性</a></p>
+<h4>区别</h4>
+<p><img src="https://i.loli.net/2019/07/24/5d38787fc6d5c12247.png" alt="对比.png"></p>
+<h4>2. 分布式事务解决多数据库数据不一致问题</h4>
+<p>数据不一致原因：多个DB之间、DB与缓存之间</p>
+<p>具体解决是基于柔性事务的</p>
+<p>方案有：	1. 异步场景下，MQ消息驱动</p>
+<pre><code>			根据解决本地事务中的不知是否成功提交消息到MQ的问题方案不同，具体有下实现：
+</code></pre>
+<p>方案一：业务方提供成功后回查</p>
+<p><img src="https://i.loli.net/2019/07/25/5d39a96d4452498995.png" alt="方案一.png"><br>
+<img src="https://i.loli.net/2019/07/25/5d39a96d2bb6350085.png" alt="方案一详情.png"><br>
+<img src="https://i.loli.net/2019/07/25/5d39a96d227c483652.png" alt="方案一优缺点.png"></p>
+<p>方案二: 不嵌入代码，消息写入表中，本地事务消息表中<br>
+<img src="https://i.loli.net/2019/07/25/5d39a96d125ba31391.png" alt="方案二.png"></p>
+<p><img src="https://i.loli.net/2019/07/25/5d39aade8e76612728.png" alt="方案二 优缺点.png"></p>
+<ol start="2">
+<li>同步场景下：用业务层驱动，基于Saga模型。视频中只是一二句带过没有细讲。</li>
+</ol>
+<h4>3.解决缓存与数据库不一致方案</h4>
+<ul>
+<li>
+<p>3.1 不一致原因</p>
+<ul>
+<li>根本原因是高并发下的环境造成,还要写与读可能会在不同的地方,这样不在一个库中难以用本地事务保证原子操作.如A写x的值，B读x的值，当A先与B但间隔非常小，按照逻辑B读到应是A修改的x值。但在高并发下，当A还没有将x置完，本地事务还没commit或本地commit后缓存中没来的及更新这样的情况，B读到是缓存中x以前的值，未提交读到内容，即脏数据了。归根到底是数据库操作和缓存操作是两个过程不是原子的，过程存在间隙，在间隙中来读请求会读到脏数据。</li>
+</ul>
+</li>
+<li>
+<p>3.2思考:它两更新的先后次序能否解决不一致</p>
+</li>
+<li>
+<p>不能，因这两步更新不是原子的，一方先失败可以终止返回，不让另一方更新了。但是一方先更新成功，后一方更新失败，两方对于一个记录产生了不一致。假设后一方是DB，那当缓存中该记录缓存项失效则会读到DB中旧值；若后一方是缓存，读请求直接读到了缓存中旧值！</p>
+</li>
+<li>
+<p>3.3 解决方法</p>
+<ul>
+<li>
+<p>有更新操作时，先删除缓存项（delete是防止读到脏数据），再更新DB。</p>
+<ul>
+<li>若先更新DB后delete cache item，delete失败会读到脏数据。先delete后更新，若delete失败直接返回false。</li>
+</ul>
+</li>
+<li>
+<p>x秒后再删除缓存项。双重保障，保证缓存项失效，防止读到脏数据</p>
+</li>
+<li>
+<p>设置缓存项失效时间 Expired time</p>
+</li>
+<li>
+<p>缓存删除失败-&gt;  记录日志、脚本定期修正时间上保证最终一致</p>
+</li>
+<li>
+<p>写请求时，先delete 缓存项。 读时再填充缓存中去。</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>参考 ： 高并发下缓存和数据库一致性问题http://blog.sina.com.cn/s/blog_bd5db8370102xbj6.html<br>
+谈谈缓存跟数据库的数据一致性问题https://www.jianshu.com/p/a532962cb9e9</p>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2018/11/02/introduce-the-first-blog/" data-toggle="tooltip" data-placement="top" title="轻松代建个人博客  Hexo+Github一步步搭建属于自己的博客">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <br>
+                
+                <!-- require APlayer -->
+                
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+
+                
+
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#分布式事务" title="分布式事务">分布式事务</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://blog.csdn.net/qq_34291777" target="_blank">CSDN Blog </a></li>
+                    
+                        <li><a href="https://github.com/MalikCheng" target="_blank">gitbub </a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/Malik Cheng">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/MalikCheng">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; MalikCheng 2019 
+                    <br>
+                    Theme by <a href="http://beantech.org">BeanTech</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    re-Ported by <a href="http://blog.malik.pub">Malik</a> | 
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=malikCheng&repo=myblog&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://demo.malik.pub/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="http://demo.malik.pub/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
