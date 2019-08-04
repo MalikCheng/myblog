@@ -1,4 +1,4 @@
-### 多终端同步使用
+###  一、 多终端同步使用
 
 远程分支：maser、hexo存放不同文件内容。
 
@@ -21,7 +21,7 @@
 
   ----
 
-### 具体步骤使用如下
+#### 具体步骤使用如下
 
 
 
@@ -38,7 +38,7 @@ git push origin hexo  //push到Github项目的hexo分支上
 ```
 ![1564834452.jpg](https://i.loli.net/2019/08/03/y3WE4btpfas981U.png)
 
-2. 另一台新设备发布前准备（旧设备已经做好在git的备份，下面会讲如何备份
+2. 另一台新设备发布前准备
    1. 安装node.js  https://nodejs.org/en/download/
    2. 安装hexo  npm install hexo -g
    3. 安装git
@@ -72,9 +72,17 @@ git push origin hexo
 
 
 
+### 二、部署过程中出现的问题
+【问题 1】每次hexo d -g 生产静态文件并部署推送到远程master分支下后，Github Pages设置的域名失效，每次推送到master都要自己setting中设置或添加CNAME文件。
+- 解决方案：为了避免域名失效后自己手动的设置，可以将CNAME文件放到本地文件的source目录下，hexo部署时会一并把CNAME文件部署到master分支的根目录下。如图CNAME在我本地文件夹的位置及CNMAE文件内容。README文件同理也是这样。
+
+  | ![下载.jpg](https://i.loli.net/2019/08/04/yzgJrMOTnKWhfp9.jpg) |
+  | ---- |
+  |   ![CNAME.png](https://i.loli.net/2019/08/04/W3sui1HbTRSzvo9.png)   |
 
 
-【问题 】当本地提交了不想提交的\错误的到远程分支下，想让远程分支回退到某个版本 
+
+【问题 2】当本地提交了不想提交的\错误的到远程分支下，想让远程分支回退到某个版本 
 
 参考
 
